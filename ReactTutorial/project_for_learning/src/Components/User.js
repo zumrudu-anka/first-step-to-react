@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 class User extends Component {
+  state = {
+    isVisible : false
+  }
+  
   //Default Propslar asagidaki gibi tanimlanacagi gibi bu sekilde de tanimlanabilir.
   /*
   static defaultProps = {
@@ -10,9 +14,20 @@ class User extends Component {
     state : PropTypes.string.isRequired
   }
   */
+// Stateler bu sekilde componentın constructor yapısı icinde belirlenebildigi gibi
+// yukarıdaki gibi Componentın hemen altında da setlenebilir.
+//  constructor(props){
+//    super(props);
+   
+//    this.state={
+//      isVisible : false
+//    }
+//  }
+
   render() {
     //Destructing
     const {name,surname,state} = this.props;
+    const {isVisible} = this.state;
     // Boylece this.props.name seklinde name ozelligine ulasmak yerine
     // sadece name seklinde ulasabiliyoruz...
     return (
@@ -23,7 +38,11 @@ class User extends Component {
                   <i className="far fa-trash-alt" style = {{cursor:"pointer"}}></i>
               </div>
               <div className = "card-body">
-                  <p className = "card-text"> Ünvan : {state}</p>
+              {
+                isVisible ?
+                <p className = "card-text"> Ünvan : {state}</p>
+                : null               
+              }
               </div>  
           </div>  
       </div>
