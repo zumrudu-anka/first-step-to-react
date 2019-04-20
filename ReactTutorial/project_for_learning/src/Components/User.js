@@ -18,11 +18,42 @@ class User extends Component {
 // yukarıdaki gibi Componentın hemen altında da setlenebilir.
 //  constructor(props){
 //    super(props);
-   
 //    this.state={
 //      isVisible : false
 //    }
+
+    //Yine asagida html etiketi icinde cagirilan onclick eventi
+    // Etiket icinde de nesneye baglanacagi gibi burada constructor icinde
+    // asagidaki sekilde baglanabilir...
+    
+    //this.onClickEvent = this.onClickEvent.bind(this);
+
 //  }
+
+
+  // Baglama islemini constructor icinde ya da etiket icinde yapabildigimiz gibi
+  // asagidaki sekilde fonksiyonumuzu arrow function seklinde olusturdugumuzda da 
+  // otomatik olarak baglama (bind) islemini de yapmis oluyoruz..
+
+  /*
+  onClickEvent = (e) => {
+    //console.log(e.target); // e(event) hangi etiketten geldi
+    console.log(this);
+  }
+  */
+  // Fonksiyonumuz bu sekilde olusturulursa etiket icinde veya constructor icinde baglama
+  // islemini yapmaliyiz..
+
+  // Eger cagrilan fonksiyona deger gonderilmek istenirse, cagrildigi yerde yine bind fonksiyonu
+  // ile baglama islemi yapilmali this parametresinden sonra gonderilmek istenen degerler virgulle
+  // sirasiyla gonderilmeli.. Yani cagrildigi yerde ilk parametre this olmali...
+  // Fakat burada fonksiyon icinde gelen parametreler e(event) olayindan once gelir.
+  // Yani ilk once gonderilen parametreleri yazariz fonksiyonu olustururken(sirasi bu sekilde olacak yani).
+  onClickEvent(number,isim,e){
+    console.log(isim);
+    console.log(number);
+  }
+
 
   render() {
     //Destructing
@@ -34,7 +65,7 @@ class User extends Component {
       <div className="col-md-8 mb-4">
           <div className="card">
               <div className="card-header d-flex justify-content-between">
-                  <h4 className="d-inline">{name} {surname}</h4>
+                  <h4 className="d-inline" onClick={this.onClickEvent.bind(this,34,"ali")}>{name} {surname}</h4>
                   <i className="far fa-trash-alt" style = {{cursor:"pointer"}}></i>
               </div>
               <div className = "card-body">
