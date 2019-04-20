@@ -49,9 +49,15 @@ class User extends Component {
   // sirasiyla gonderilmeli.. Yani cagrildigi yerde ilk parametre this olmali...
   // Fakat burada fonksiyon icinde gelen parametreler e(event) olayindan once gelir.
   // Yani ilk once gonderilen parametreleri yazariz fonksiyonu olustururken(sirasi bu sekilde olacak yani).
+  
   onClickEvent(number,isim,e){
-    console.log(isim);
-    console.log(number);
+    //console.log(isim);
+    //console.log(number);
+    this.setState(
+      {
+        isVisible : !this.state.isVisible
+      }
+    )
   }
 
 
