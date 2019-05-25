@@ -5,9 +5,15 @@
   text-align: center;
 }
 
-.splitTextclass{
+.splitTextClass{
   color:#2F4F4F;
   font-weight: bold;
   font-size: 30px;
   text-align: center;
+}
+
+.maindiv{
+  font-size:30px;
+  text-align: center;
+  width: 100%;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import posed from 'react-pose';
 import UserConsumer from "../context";
+import './css/stiller.css';
 
 var uniqid=require('uniqid');
 
@@ -78,7 +79,7 @@ export class AddUser extends Component {
                 value => {
                     const{dispatch} = value;
                     return (
-                        <div className="col-md-8 mb-4">
+                        <div className="AddUserClass">
                             <button onClick={this.changeVisibility} className="btn btn-dark btn-block mb-3">{visible ? "Hide Form" : "Show Form"}</button>
                             <Animation pose={this.state.visible ? "visible" : "hidden"}>
                                 <div className="card">
