@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import UserConsumer from "../context";
 
 class User extends Component {
   state = {
@@ -60,9 +61,10 @@ class User extends Component {
     )
   }
 
-  ondeleteUser = (e) => {
+  ondeleteUser = (dispatch,e) => {
     const{id} = this.props;
     // Consumer dispatch
+    dispatch({ type: "DELETE_USER", payload:id});
   }
 
 
@@ -72,23 +74,35 @@ class User extends Component {
     const {isVisible} = this.state;
     // Boylece this.props.name seklinde name ozelligine ulasmak yerine
     // sadece name seklinde ulasabiliyoruz...
+
     return (
-      <div className="col-md-8 mb-4">
-          <div className="card">
-              <div className="card-header d-flex justify-content-between">
-                  <h4 className="d-inline" onClick={this.onClickEvent.bind(this,34,"ali")}>{name} {surname}</h4>
-                  <i onClick={this.ondeleteUser} className="far fa-trash-alt" style = {{cursor:"pointer"}}></i>
+      <UserConsumer>
+        {
+          value => {
+            const {dispatch} = value;
+            return (
+              <div className="col-md-8 mb-4">
+                  <div className="card">
+                      <div className="card-header d-flex justify-content-between">
+                          <h4 className="d-inline" onClick={this.onClickEvent.bind(this,34,"ali")}>{name} {surname}</h4>
+                          <i onClick={this.ondeleteUser.bind(this,dispatch)} className="far fa-trash-alt" style = {{cursor:"pointer"}}></i>
+                      </div>
+                      <div className = "card-body">
+                      {
+                        isVisible ?
+                        <p className = "card-text"> Ünvan : {state}</p>
+                        : null               
+                      }
+                      </div>  
+                  </div>  
               </div>
-              <div className = "card-body">
-              {
-                isVisible ?
-                <p className = "card-text"> Ünvan : {state}</p>
-                : null               
-              }
-              </div>  
-          </div>  
-      </div>
+            )
+          }
+        }
+      </UserConsumer>
     )
+
+    
   }
 }
 User.defaultProps = {
