@@ -62,7 +62,7 @@ class User extends Component {
   }
 
   ondeleteUser = (dispatch,e) => {
-    const{id} = this.props;
+    const{id}=this.props;
     // Consumer dispatch
     dispatch({ type: "DELETE_USER", payload:id});
   }
@@ -70,7 +70,7 @@ class User extends Component {
 
   render() {
     //Destructing
-    const {name,surname,state} = this.props;
+    const {name,surname,degree} = this.props;
     const {isVisible} = this.state;
     // Boylece this.props.name seklinde name ozelligine ulasmak yerine
     // sadece name seklinde ulasabiliyoruz...
@@ -90,7 +90,7 @@ class User extends Component {
                       <div className = "card-body">
                       {
                         isVisible ?
-                        <p className = "card-text"> Ünvan : {state}</p>
+                        <p className = "card-text"> Ünvan : {degree}</p>
                         : null               
                       }
                       </div>  
@@ -108,11 +108,11 @@ class User extends Component {
 User.defaultProps = {
   name : "Bilgi Yok",
   surname : "Bilgi Yok",
-  state : "Bilgi Yok"
+  degree : "Bilgi Yok"
 }
 User.propTypes = {
   name : PropTypes.string.isRequired,
   surname : PropTypes.string.isRequired,
-  state : PropTypes.string.isRequired
+  degree : PropTypes.string.isRequired
 }
 export default User;

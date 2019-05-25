@@ -22,18 +22,19 @@ export class UserProvider extends Component {
             id : 1,
             name : "Osman",
             surname : "Durdağ",
-            state : "Prof. Dr"
+            degree : "Prof. Dr"
           },
           {
             id : 2,
             name : "Fatih",
             surname : "Bodur",
-            state : "Prof. Dr"
-          },{
+            degree : "Prof. Dr"
+          },
+          {
             id : 3,
             name : "Mehmet",
             surname : "Kara",
-            state : "Öğrenci"
+            degree : "Öğrenci"
           },
         ],
         dispatch : action => {
