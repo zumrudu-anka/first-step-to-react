@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Navbar from "./Components/Navbar";
 import Users from "./Components/Users";
 import AddUser from "./Components/AddUser";
 import SplitText from 'react-pose-text';
