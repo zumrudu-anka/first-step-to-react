@@ -3,7 +3,6 @@ import User from "./User";
 
 class Users extends Component {
   render() {
-      const {users}=this.props;
       return (
       <div>
         {
@@ -11,9 +10,12 @@ class Users extends Component {
                 return(
                     <User 
                         key = {user.id}
+                        id = {user.id}
                         name = {user.name}
                         surname = {user.surname}
-                        state = {user.state}></User>
+                        state = {user.state}
+                    />
+                        
                 )
             })
         }
@@ -21,4 +23,5 @@ class Users extends Component {
     )
   }
 }
+
 export default Users;
