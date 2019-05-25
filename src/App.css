@@ -4,3 +4,10 @@
   border-bottom: 0.1ch  solid  red;
   text-align: center;
 }
+
+.splitTextclass{
+  color:#2F4F4F;
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+}
