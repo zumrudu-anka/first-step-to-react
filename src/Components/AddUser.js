@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import posed from 'react-pose';
+import UserConsumer from "../context";
+
+var uniqid=require('uniqid');
 
 const Animation = posed.div({
     visible:{
@@ -18,7 +21,10 @@ const Animation = posed.div({
 
 export class AddUser extends Component {
     state={
-        visible:true
+        visible:true,
+        name : "",
+        surname : "",
+        degree : ""
     }
 
     changeVisibility = (e) => {
@@ -27,52 +33,107 @@ export class AddUser extends Component {
         })
     }
 
+    // changeName = (e) => {
+    //     this.setState({
+    //         name : e.target.value
+    //     }) 
+    // }
+
+    // changeSurname = (e) => {
+    //     this.setState({
+    //         surname: e.target.value
+    //     })
+    // }
+
+    // changeDegree = (e) => {
+    //     this.setState({
+    //         degree : e.target.value
+    //     })
+    // }
+
+    changeInput = (e) => {
+        this.setState({
+            [e.target.name] : e.target.value // js e özel bir kullanım, etiketin name'ine göre degerini setliyor.
+        })
+    }
+
+    addUser = (dispatch,e) => {
+        e.preventDefault(); // Formun submit butonuna tıkladığımızda gerçekleştirdiği default aktivitesini engelledik
+        const{name,surname,degree} = this.state;
+        const newUser = {   // unique id ile yeni bir kullanici olusturduk.
+            id : uniqid(),
+            name : name,
+            surname : surname,
+            degree : degree
+        }
+        dispatch({type:"ADD_USER", payload:newUser});
+    }
+
     render() {
-        const{visible}=this.state;
-        return (
-            <div className="col-md-8 mb-4">
-                <button onClick={this.changeVisibility} class="btn btn-dark btn-block mb-3">{visible ? "Hide Form" : "Show Form"}</button>
-                <Animation pose={this.state.visible ? "visible" : "hidden"}>
-                    <div className="card">
-                        <div className="card-header">
-                            <h4>Add User Form</h4>
+        const{visible,name,surname,degree}=this.state;
+        return <UserConsumer>
+            {
+                value => {
+                    const{dispatch} = value;
+                    return (
+                        <div className="col-md-8 mb-4">
+                            <button onClick={this.changeVisibility} className="btn btn-dark btn-block mb-3">{visible ? "Hide Form" : "Show Form"}</button>
+                            <Animation pose={this.state.visible ? "visible" : "hidden"}>
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h4>Add User Form</h4>
+                                    </div>
+                                    <div className="card-body">
+                                        <form onSubmit={this.addUser.bind(this,dispatch)}>
+                                            <div className="form-group">
+                                                <label htmlFor="name">Name</label>
+                                                <input
+                                                type="text"
+                                                name="name"
+                                                id="name"
+                                                placeholder="Enter Name"
+                                                className="form-control"
+                                                value={name}
+                                                onChange = {this.changeInput}
+                                                ></input>
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="surname">Surname</label>
+                                                <input
+                                                type="text"
+                                                name="surname"
+                                                id="surname"
+                                                placeholder="Enter Surname"
+                                                className="form-control"
+                                                value={surname}
+                                                onChange = {this.changeInput}
+                                                ></input>
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="degree">Degree</label>
+                                                <input
+                                                type="text"
+                                                name="degree"
+                                                id="degree"
+                                                placeholder="Enter Degree"
+                                                className="form-control"
+                                                value={degree}
+                                                onChange = {this.changeInput}
+                                                ></input>
+                                            </div>
+                                            <button className="btn btn-danger btn-block" type="submit">Add User</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </Animation>
                         </div>
-                        <div className="card-body">
-                            <form>
-                                <div className="form-group">
-                                    <label htmlFor="name">Name</label>
-                                    <input
-                                    type="text"
-                                    name="name"
-                                    id="name"
-                                    placeholder="Enter Name"
-                                    class="form-control"></input>
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="surname">Surname</label>
-                                    <input
-                                    type="text"
-                                    name="surname"
-                                    id="surname"
-                                    placeholder="Enter Surname"
-                                    class="form-control"></input>
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="degree">Degree</label>
-                                    <input
-                                    type="text"
-                                    name="degree"
-                                    id="degree"
-                                    placeholder="Enter Degree"
-                                    class="form-control"></input>
-                                </div>
-                                <button class="btn btn-danger btn-block" type="submit">Add User</button>
-                            </form>
-                        </div>
-                    </div>
-                </Animation>
-            </div>
-        )
+                    )
+                }
+            }
+        </UserConsumer>
+
+        
+        
     }
 }
 export default AddUser;

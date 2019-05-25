@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import UserConsumer from "../context";
-import { color } from 'style-value-types';
+//import { color } from 'style-value-types';
 
 class User extends Component {
   state = {
@@ -114,6 +114,6 @@ User.defaultProps = {
 User.propTypes = {
   name : PropTypes.string.isRequired,
   surname : PropTypes.string.isRequired,
-  degree : PropTypes.string.isRequired
+  degree : PropTypes.string.isRequired,
 }
 export default User;
