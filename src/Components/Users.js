@@ -19,7 +19,7 @@ class Users extends Component {
                                   id = {user.id}
                                   name = {user.name}
                                   surname = {user.surname}
-                                  state = {user.state}
+                                  degree = {user.degree}
                               />
                           )
                       })

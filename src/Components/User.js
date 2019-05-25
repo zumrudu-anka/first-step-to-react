@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import UserConsumer from "../context";
+import { color } from 'style-value-types';
 
 class User extends Component {
   state = {
@@ -81,16 +82,16 @@ class User extends Component {
           value => {
             const {dispatch} = value;
             return (
-              <div className="col-md-8 mb-4">
-                  <div className="card">
-                      <div className="card-header d-flex justify-content-between">
+              <div className="col-md-8 mb-4" >
+                  <div className="card" >
+                      <div className="card-header d-flex justify-content-between" style={isVisible ? { backgroundColor:"#2F4F4F", color:"white"} : {backgroundColor:"gray"}}>
                           <h4 className="d-inline" onClick={this.onClickEvent.bind(this,34,"ali")}>{name} {surname}</h4>
                           <i onClick={this.ondeleteUser.bind(this,dispatch)} className="far fa-trash-alt" style = {{cursor:"pointer"}}></i>
                       </div>
                       <div className = "card-body">
                       {
                         isVisible ?
-                        <p className = "card-text"> Ünvan : {degree}</p>
+                        <p className = "card-text" style={{backgroundColor:"gray",color:"2F4F4F",fontWeight:"bold"}}> Ünvan : {degree}</p>
                         : null               
                       }
                       </div>  
