@@ -1,16 +1,10 @@
 {
   "users": [
     {
-      "id": "unique-2",
-      "name": "Fatih",
-      "surname": "Bodur",
-      "degree": "Prof. Dr"
-    },
-    {
-      "id": "unique-3",
-      "name": "Mehmet",
-      "surname": "Kara",
-      "degree": "Öğrenci"
+      "name": "Osman",
+      "surname": "Durdağ",
+      "degree": "Prof Dr.",
+      "id": 1
     }
   ]
 }

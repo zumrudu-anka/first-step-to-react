@@ -3,6 +3,7 @@ import posed from 'react-pose';
 import UserConsumer from "../context";
 import './css/stiller.css';
 import axios from "axios";
+import App from '../App';
 
 //var uniqid=require('uniqid');
 
@@ -87,9 +88,6 @@ export class AddUser extends Component {
                             <button onClick={this.changeVisibility} className="btn btn-dark btn-block mb-3">{visible ? "Hide Form" : "Show Form"}</button>
                             <Animation pose={this.state.visible ? "visible" : "hidden"}>
                                 <div className="card">
-                                    <div className="card-header">
-                                        <h4>Add User Form</h4>
-                                    </div>
                                     <div className="card-body">
                                         <form onSubmit={this.addUser.bind(this,dispatch)}>
                                             <div className="form-group">
