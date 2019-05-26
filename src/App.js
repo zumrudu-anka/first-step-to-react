@@ -4,7 +4,9 @@ import AddUser from "./Components/AddUser";
 import NotFoundURL from "./Components/NotFoundURL";
 import SplitText from 'react-pose-text';
 import './App.css';
+import Contribute from "./pages/Contribute";
 import {BrowserRouter as Router, Route, Switch,Link} from "react-router-dom";
+
 const charPoses = {
   exit : { y:30, opacity: 0},
   enter: {
@@ -28,7 +30,8 @@ const HomePage = () => {
       </SplitText>
       <hr></hr>
       <Users></Users>
-      <Link to="/add">Add User</Link>
+      <Link to="/add">Add User</Link><br></br>
+      <Link to="/github">Download Project Files</Link>      
     </div>
     
   )
@@ -42,11 +45,13 @@ const AddUserPage = () => {
       </SplitText>
       <hr></hr>
       <AddUser></AddUser>
-      <Link to="/">Home Page</Link>
+      <Link to="/">Home Page</Link><br></br>
+      <Link to="/github">Download Project Files</Link>
     </div>
     
   )
 }
+
 
 // const NotFoundURL = () => {
 //   return (
@@ -75,6 +80,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={HomePage}></Route>
             <Route exact path="/add" component={AddUserPage}></Route>
+            <Route exact path="/github" component={Contribute}></Route>
             <Route component={NotFoundURL}></Route>
           </Switch>
           

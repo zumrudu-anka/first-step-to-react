@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class NotFoundURL extends Component {
+class NotFoundURL extends Component {
     render() {
         return (
             <div style={{alignContent:"center"}}>

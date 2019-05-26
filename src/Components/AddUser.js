@@ -3,7 +3,6 @@ import posed from 'react-pose';
 import UserConsumer from "../context";
 import './css/stiller.css';
 import axios from "axios";
-import App from '../App';
 
 //var uniqid=require('uniqid');
 
@@ -24,7 +23,7 @@ const Animation = posed.div({
 
 
 
-export class AddUser extends Component {
+class AddUser extends Component {
     state={
         visible:true,
         name : "",
