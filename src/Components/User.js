@@ -72,11 +72,7 @@ class User extends Component {
     // Consumer dispatch
     dispatch({ type: "DELETE_USER", payload:id});
   }
-  componentWillUnmount(){
-    console.log("Component Will Unmount");
-  }
-
-
+  
   render() {
     //Destructing
     const {name,surname,degree} = this.props;

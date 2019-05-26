@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import posed from 'react-pose';
 import UserConsumer from "../context";
 import './css/stiller.css';
+import axios from "axios";
 
-var uniqid=require('uniqid');
+//var uniqid=require('uniqid');
 
 const Animation = posed.div({
     visible:{
@@ -60,16 +61,19 @@ export class AddUser extends Component {
         })
     }
 
-    addUser = (dispatch,e) => {
+    addUser = async (dispatch,e) => {
         e.preventDefault(); // Formun submit butonuna tıkladığımızda gerçekleştirdiği default aktivitesini engelledik
         const{name,surname,degree} = this.state;
         const newUser = {   // unique id ile yeni bir kullanici olusturduk.
-            id : uniqid(),
+            //id : uniqid(),    // json-server kendisi otomatik id olusturuyor
             name : name,
             surname : surname,
             degree : degree
         }
-        dispatch({type:"ADD_USER", payload:newUser});
+
+        const response = await axios.post("http://localhost:3004/users",newUser);
+
+        dispatch({type:"ADD_USER", payload:response.data});
     }
 
     render() {
