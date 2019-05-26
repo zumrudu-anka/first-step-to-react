@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import UserConsumer from "../context";
-import './css/stiller.css'
+import './css/stiller.css';
+import axios from "axios";
 //import { color } from 'style-value-types';
 
 class User extends Component {
@@ -63,10 +64,16 @@ class User extends Component {
     )
   }
 
-  ondeleteUser = (dispatch,e) => {
+  ondeleteUser = async (dispatch,e) => {
     const{id}=this.props;
+    // Delete Request
+    await axios.delete(`http://localhost:3004/users/${id}`);
+
     // Consumer dispatch
     dispatch({ type: "DELETE_USER", payload:id});
+  }
+  componentWillUnmount(){
+    console.log("Component Will Unmount");
   }
 
 
