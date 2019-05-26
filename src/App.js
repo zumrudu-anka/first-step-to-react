@@ -31,6 +31,7 @@ const HomePage = () => {
       </SplitText>
       <hr></hr>
       <Users></Users>
+      <br></br>
       <Link to="/add">Add User</Link><br></br>
       <Link to="/github">Download Project Files</Link>      
     </div>
@@ -38,20 +39,20 @@ const HomePage = () => {
   )
 }
 
-const AddUserPage = () => {
-  return(
-    <div>
-      <SplitText className="splitTextClass" initialPose="exit" pose="enter" charPoses={charPoses}>
-          Add User
-      </SplitText>
-      <hr></hr>
-      <AddUser></AddUser>
-      <Link to="/">Home Page</Link><br></br>
-      <Link to="/github">Download Project Files</Link>
-    </div>
+// const AddUserPage = () => {
+//   return(
+//     <div>
+//       <SplitText className="splitTextClass" initialPose="exit" pose="enter" charPoses={charPoses}>
+//           Add User
+//       </SplitText>
+//       <hr></hr>
+//       <AddUser></AddUser>
+//       <Link to="/">Home Page</Link><br></br>
+//       <Link to="/github">Download Project Files</Link>
+//     </div>
     
-  )
-}
+//   )
+// }
 
 
 // const NotFoundURL = () => {
@@ -80,7 +81,7 @@ class App extends Component {
         <div className="maindiv">
           <Switch>
             <Route exact path="/" component={HomePage}></Route>
-            <Route exact path="/add" component={AddUserPage}></Route>
+            <Route exact path="/add" component={AddUser}></Route>
             <Route exact path="/github" component={Contribute}></Route>
             <Route exact path="/edit/:id" component={UpdateUser}></Route>
             <Route component={NotFoundURL}></Route>

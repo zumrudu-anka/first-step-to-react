@@ -1,8 +1,23 @@
 import React, { Component } from 'react'
 import UserConsumer from "../context";
 import '../Components/css/stiller.css';
+import SplitText from 'react-pose-text';
 import axios from "axios";
+import {Link} from "react-router-dom";
 
+const charPoses = {
+    exit : { y:30, opacity: 0},
+    enter: {
+        y: 10,
+        opacity: 1,
+        transition: ({charInWordIndex}) => ({
+            type: "spring",
+            delay: charInWordIndex *30,
+            stiffness:500 + charInWordIndex*150,
+            damping:10 - charInWordIndex *1
+        })
+    }
+}
 
 class UpdateUser extends Component {
     state={
@@ -77,6 +92,11 @@ class UpdateUser extends Component {
                     const{dispatch} = value;
                     return (
                         <div className="AddUserClass">
+                                <SplitText className="splitTextClass" initialPose="exit" pose="enter" charPoses={charPoses}>
+                                    Update User
+                                </SplitText>
+                                <br></br>
+                                <br></br>
                                 <div className="card">
                                     <div className="card-body">
                                         <form onSubmit={this.updateUser.bind(this,dispatch)}>
@@ -127,6 +147,7 @@ class UpdateUser extends Component {
                                         }
                                     </div>
                                 </div>
+                                <Link to="/">Homepage</Link>
                         </div>
                     )
                 }

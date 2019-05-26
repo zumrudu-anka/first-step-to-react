@@ -1,10 +1,26 @@
 import React, { Component } from 'react'
 import posed from 'react-pose';
+import SplitText from 'react-pose-text';
 import UserConsumer from "../context";
 import '../Components/css/stiller.css';
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 //var uniqid=require('uniqid');
+
+const charPoses = {
+    exit : { y:30, opacity: 0},
+    enter: {
+        y: 10,
+        opacity: 1,
+        transition: ({charInWordIndex}) => ({
+            type: "spring",
+            delay: charInWordIndex *30,
+            stiffness:500 + charInWordIndex*150,
+            damping:10 - charInWordIndex *1
+        })
+    }
+  }
 
 const Animation = posed.div({
     visible:{
@@ -93,8 +109,7 @@ class AddUser extends Component {
         dispatch({type:"ADD_USER", payload:response.data});
 
         //  Redirect
-        console.log(response);
-        //  this.props.history.push("/");
+        this.props.history.push("/");
     }
 
     render() {
@@ -105,6 +120,11 @@ class AddUser extends Component {
                     const{dispatch} = value;
                     return (
                         <div className="AddUserClass">
+                            <SplitText className="splitTextClass" initialPose="exit" pose="enter" charPoses={charPoses}>
+                                Add User
+                            </SplitText>
+                            <br></br>
+                            <br></br>
                             <button onClick={this.changeVisibility} className="btn btn-dark btn-block mb-3">{visible ? "Hide Form" : "Show Form"}</button>
                             <Animation pose={this.state.visible ? "visible" : "hidden"}>
                                 <div className="card">
@@ -158,14 +178,12 @@ class AddUser extends Component {
                                     </div>
                                 </div>
                             </Animation>
+                            <Link to="/">Homepage</Link>
                         </div>
                     )
                 }
             }
         </UserConsumer>
-
-        
-        
     }
 }
 export default AddUser;
