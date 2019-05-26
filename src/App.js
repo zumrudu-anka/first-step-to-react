@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Users from "./Components/Users";
-import AddUser from "./Components/AddUser";
+import AddUser from "./forms/AddUser";
+import UpdateUser from "./forms/UpdateUser";
 import NotFoundURL from "./Components/NotFoundURL";
 import SplitText from 'react-pose-text';
 import './App.css';
@@ -81,6 +82,7 @@ class App extends Component {
             <Route exact path="/" component={HomePage}></Route>
             <Route exact path="/add" component={AddUserPage}></Route>
             <Route exact path="/github" component={Contribute}></Route>
+            <Route exact path="/edit/:id" component={UpdateUser}></Route>
             <Route component={NotFoundURL}></Route>
           </Switch>
           

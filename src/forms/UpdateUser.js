@@ -1,59 +1,16 @@
 import React, { Component } from 'react'
-import posed from 'react-pose';
 import UserConsumer from "../context";
-import './css/stiller.css';
+import '../Components/css/stiller.css';
 import axios from "axios";
 
-//var uniqid=require('uniqid');
 
-const Animation = posed.div({
-    visible:{
-        opacity:1,
-        applyAtStart : {
-            display : "block"
-        }
-    },
-    hidden:{
-        opacity:0,
-        applyAtEnd : {
-            display : "none"
-        }
-    }
-});
-
-
-
-class AddUser extends Component {
+class UpdateUser extends Component {
     state={
-        visible:true,
         name : "",
         surname : "",
-        degree : ""
+        degree : "",
+        error: false
     }
-
-    changeVisibility = (e) => {
-        this.setState({
-            visible : !this.state.visible
-        })
-    }
-
-    // changeName = (e) => {
-    //     this.setState({
-    //         name : e.target.value
-    //     }) 
-    // }
-
-    // changeSurname = (e) => {
-    //     this.setState({
-    //         surname: e.target.value
-    //     })
-    // }
-
-    // changeDegree = (e) => {
-    //     this.setState({
-    //         degree : e.target.value
-    //     })
-    // }
 
     changeInput = (e) => {
         this.setState({
@@ -61,34 +18,68 @@ class AddUser extends Component {
         })
     }
 
-    addUser = async (dispatch,e) => {
+    componentDidMount = async () => {
+        const {id}=this.props.match.params;
+
+        const response= await axios.get(`http://localhost:3004/users/${id}`);
+        
+        const {name,surname,degree} = response.data;
+
+        this.setState({
+            name:name,
+            surname:surname,
+            degree:degree
+        })
+
+    }
+    
+    validateForm = () =>{
+        const{name,surname,degree}=this.state;
+        if(name === "" || surname === "" || degree === ""){
+            return false;
+        }
+        return true;
+    }
+
+    updateUser = async (dispatch,e) => {
         e.preventDefault(); // Formun submit butonuna tıkladığımızda gerçekleştirdiği default aktivitesini engelledik
-        const{name,surname,degree} = this.state;
-        const newUser = {   // unique id ile yeni bir kullanici olusturduk.
-            //id : uniqid(),    // json-server kendisi otomatik id olusturuyor
-            name : name,
-            surname : surname,
-            degree : degree
+
+        // Update User
+        const {id}=this.props.match.params;
+        const {name,surname,degree}=this.state;
+        
+        const updatedUser = {
+            name:name,
+            surname:surname,
+            degree:degree
+        }
+        
+        if(!this.validateForm()){
+            this.setState({
+                error:true
+            })
+            return;
         }
 
-        const response = await axios.post("http://localhost:3004/users",newUser);
+        const response = await axios.put(`http://localhost:3004/users/${id}`,updatedUser);
 
-        dispatch({type:"ADD_USER", payload:response.data});
+        dispatch({type:"UPDATE_USER",payload:response.data});
+
+        //  Redirect
+        this.props.history.push("/");
     }
 
     render() {
-        const{visible,name,surname,degree}=this.state;
+        const{name,surname,degree,error}=this.state;
         return <UserConsumer>
             {
                 value => {
                     const{dispatch} = value;
                     return (
                         <div className="AddUserClass">
-                            <button onClick={this.changeVisibility} className="btn btn-dark btn-block mb-3">{visible ? "Hide Form" : "Show Form"}</button>
-                            <Animation pose={this.state.visible ? "visible" : "hidden"}>
                                 <div className="card">
                                     <div className="card-body">
-                                        <form onSubmit={this.addUser.bind(this,dispatch)}>
+                                        <form onSubmit={this.updateUser.bind(this,dispatch)}>
                                             <div className="form-group">
                                                 <label htmlFor="name">Name</label>
                                                 <input
@@ -125,11 +116,17 @@ class AddUser extends Component {
                                                 onChange = {this.changeInput}
                                                 ></input>
                                             </div>
-                                            <button className="btn btn-danger btn-block" type="submit">Add User</button>
+                                            <button className="btn btn-dark btn-block" type="submit">Update User</button>
                                         </form>
+                                        {
+                                            error ?
+                                            <div className="alert alert-danger">
+                                                Lütfen Formun Tamamını Doldurunuz...
+                                            </div>
+                                            : null
+                                        }
                                     </div>
                                 </div>
-                            </Animation>
                         </div>
                     )
                 }
@@ -140,5 +137,5 @@ class AddUser extends Component {
         
     }
 }
-export default AddUser;
+export default UpdateUser;
 

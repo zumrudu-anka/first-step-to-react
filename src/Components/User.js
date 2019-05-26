@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import UserConsumer from "../context";
 import './css/stiller.css';
 import axios from "axios";
+import {Link} from "react-router-dom";
 //import { color } from 'style-value-types';
 
 class User extends Component {
@@ -75,7 +76,7 @@ class User extends Component {
   
   render() {
     //Destructing
-    const {name,surname,degree} = this.props;
+    const {id,name,surname,degree} = this.props;
     const {isVisible} = this.state;
     // Boylece this.props.name seklinde name ozelligine ulasmak yerine
     // sadece name seklinde ulasabiliyoruz...
@@ -92,13 +93,14 @@ class User extends Component {
                           <h4 className="d-inline" onClick={this.onClickEvent.bind(this,34,"ali")}>{name} {surname}</h4>
                           <i onClick={this.ondeleteUser.bind(this,dispatch)} className="far fa-trash-alt" style = {{cursor:"pointer"}}></i>
                       </div>
-                      <div className = "card-body">
                       {
                         isVisible ?
-                        <p className = "card-text" style={{backgroundColor:"gray",color:"2F4F4F",fontWeight:"bold"}}> Ünvan : {degree}</p>
+                          <div className = "card-body">
+                            <p className = "card-text" style={{backgroundColor:"gray",color:"2F4F4F",fontWeight:"bold"}}> Ünvan : {degree}</p>
+                            <Link to={`edit/${id}`} className="btn btn-dark btn-block">Update User</Link>
+                          </div>
                         : null               
                       }
-                      </div>  
                   </div>  
               </div>
             )
